@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#game{
+    width: 400px;
+    height: 800px;
+    border: 1px solid black;
+    margin: auto;
+    overflow: hidden;
+}
+#character{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: relative;
+    top: 500px;
+    left: 150px;
+}
+#block{
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    animation: slide 1.1s linear infinite;
+    position: relative;
+}
+#coin{
+    width: 100px;
+    height: 100px;
+    background-color: yellow;
+    animation: slide 2s linear infinite;
+    position: relative;
+}
+
+@keyframes slide {
+    0% {
+        top: -100px;
+    }
+    100% {
+        top: 800px;
+    }
+}
