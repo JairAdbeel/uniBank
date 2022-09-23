@@ -28,7 +28,7 @@
     width: 100px;
     height: 100px;
     background-color: yellow;
-    animation: slide 2s linear infinite;
+    animation: slide 1.5s linear infinite;
     position: relative;
 }
 

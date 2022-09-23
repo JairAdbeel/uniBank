@@ -42,10 +42,11 @@ coin.addEventListener("animationiteration", () => {
 setInterval(function() {
     var characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
     var blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));  
-    var blockTop = parseInt(window.getComputedStyle(block).getPropertyValue("top"));
+    var blockBottom = parseInt(window.getComputedStyle(block).getPropertyValue("bottom"));
     
 
-    if (characterLeft == blockLeft && blockTop < 800 && blockTop > 600) {
+    if (characterLeft - blockLeft <= 50 && characterLeft - blockLeft > -100 &&
+        blockBottom <= -600 && blockBottom >= -800) {
         alert("Game Over! Score: " + counter);
         // block.style.animation = "none";
     }
@@ -54,11 +55,12 @@ setInterval(function() {
 
 setInterval(function() {
     var characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-    var coinLeft = parseInt(window.getComputedStyle(coin).getPropertyValue("left"));  
-    var coinTop = parseInt(window.getComputedStyle(coin).getPropertyValue("top"));
+    var coinLeft = parseInt(window.getComputedStyle(coin).getPropertyValue("left")); 
+    var coinBottom = parseInt(window.getComputedStyle(coin).getPropertyValue("bottom"));
 
-    if (characterLeft == coinLeft && coinTop > 400 && coinTop < 650) {
-        counter += 1;
+    if (characterLeft - coinLeft <= 50 && characterLeft - coinLeft > -100 && 
+        coinBottom <= -600 && coinBottom >= -750) {
+        counter++;
         score.value = counter;
     }
-}, 1000);
+}, 10);
