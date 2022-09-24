@@ -68,7 +68,7 @@ setInterval(function() {
         var specialBottom   = parseInt(window.getComputedStyle(special).getPropertyValue("bottom"));
 
         if (characterLeft - specialLeft <= 50 && characterLeft - specialLeft > -100 && 
-            specialBottom <= -600 && specialBottom >= -800) {
+            specialBottom <= -300 && specialBottom >= -600) {
             flagSpecial = true;
         }
     }
@@ -87,7 +87,7 @@ var funcSpecial = setInterval(function() {
     var random      = Math.floor(Math.random() * 4);
     var left        = random * 100;
     var special     = document.createElement("div");
-    
+
     special.setAttribute("id", "special");
     special.style.left = left + "px";
     document.getElementById("game").appendChild(special);
