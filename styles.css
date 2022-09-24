@@ -8,6 +8,9 @@
     border: 1px solid black;
     margin: auto;
     overflow: hidden;
+    background-image: url("imgs/fondo.gif");
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 #character{
     width: 100px;
@@ -16,6 +19,7 @@
     position: relative;
     top: 500px;
     left: 150px;
+    z-index: 10;
 }
 #block{
     width: 100px;
