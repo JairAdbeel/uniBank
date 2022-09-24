@@ -11,8 +11,12 @@
     <div>
         <p>Score: <input id="score" value="0" text="0" disabled></input></p>
     </div>
+    <div>
+        <p>Accesories: <input id="accesories" value="0" text="0" disabled></input></p>
+    </div>
     <div id="game">
         <div id="block"></div>
+        <!-- <div id="special"></div> -->
         <div id="coin"></div>
         <div id="character"></div>
     </div>

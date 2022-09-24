@@ -1,7 +1,9 @@
-var character = document.getElementById('character');
-var score = document.getElementById("score");
-var flag = false;
-var counter = 0;
+var character           = document.getElementById('character');
+var score               = document.getElementById("score");
+var flagCoin            = false;
+var flagSpecial         = false;
+var counter             = 0;
+var countSpecial        = 0;
 
 function moveToLeft(){
     let left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
@@ -29,7 +31,6 @@ block.addEventListener("animationiteration", () => {
     var random = Math.floor(Math.random() * 4);
     left = random * 100;
     block.style.left = left + "px";
-    // counter++;
 });
 
 var coin = document.getElementById("coin");
@@ -38,29 +39,72 @@ coin.addEventListener("animationiteration", () => {
     left = random * 100;
     coin.style.left = left + "px";
 });
-    
+
 setInterval(function() {
-    var characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-    var blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));  
-    var blockBottom = parseInt(window.getComputedStyle(block).getPropertyValue("bottom"));
-    
+    var characterLeft   = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
+    var blockLeft       = parseInt(window.getComputedStyle(block).getPropertyValue("left"));  
+    var blockBottom     = parseInt(window.getComputedStyle(block).getPropertyValue("bottom"));
 
     if (characterLeft - blockLeft <= 50 && characterLeft - blockLeft > -100 &&
         blockBottom <= -600 && blockBottom >= -800) {
         alert("Game Over! Score: " + counter);
-        // block.style.animation = "none";
     }
 
 }, 1)
 
 setInterval(function() {
-    var characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-    var coinLeft = parseInt(window.getComputedStyle(coin).getPropertyValue("left")); 
-    var coinBottom = parseInt(window.getComputedStyle(coin).getPropertyValue("bottom"));
+    var characterLeft   = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
+    var coinLeft        = parseInt(window.getComputedStyle(coin).getPropertyValue("left")); 
+    var coinBottom      = parseInt(window.getComputedStyle(coin).getPropertyValue("bottom"));
 
     if (characterLeft - coinLeft <= 50 && characterLeft - coinLeft > -100 && 
-        coinBottom <= -600 && coinBottom >= -750) {
+        coinBottom <= -600 && coinBottom >= -800) {
+        flagCoin = true;
+    }
+
+    if ( document.getElementById("special") ) {
+        var special         = document.getElementById("special");
+        var specialLeft     = parseInt(window.getComputedStyle(special).getPropertyValue("left")); 
+        var specialBottom   = parseInt(window.getComputedStyle(special).getPropertyValue("bottom"));
+
+        if (characterLeft - specialLeft <= 50 && characterLeft - specialLeft > -100 && 
+            specialBottom <= -600 && specialBottom >= -800) {
+            flagSpecial = true;
+        }
+    }
+    
+}, 0.1);
+
+setInterval(function() {
+    if (flagCoin) {
         counter++;
         score.value = counter;
     }
-}, 10);
+    flagCoin = false;
+}, 1500);
+
+var funcSpecial = setInterval(function() {
+    var random      = Math.floor(Math.random() * 4);
+    var left        = random * 100;
+    var special     = document.createElement("div");
+    
+    special.setAttribute("id", "special");
+    special.style.left = left + "px";
+    document.getElementById("game").appendChild(special);
+
+    eliminarSpecial();
+}, 15000);
+
+function eliminarSpecial() {
+    setTimeout(function() {
+        if (flagSpecial) {
+            countSpecial++;
+            accesories.value = countSpecial;
+        }
+        flagSpecial = false;
+
+        var special = document.getElementById("special");
+        document.getElementById("game").removeChild(special);
+        clearInterval("funcSpecial");
+    }, 1900);
+}

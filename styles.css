@@ -21,22 +21,33 @@
     width: 100px;
     height: 100px;
     background-color: black;
-    animation: slide 1.1s linear infinite;
+    animation: slideBlock 1.3s linear infinite;
     position: relative;
 }
 #coin{
     width: 100px;
     height: 100px;
     background-color: yellow;
-    animation: slide 1.5s linear infinite;
+    animation: slideCoin 1.7s linear infinite;
     position: relative;
 }
-
-@keyframes slide {
-    0% {
-        top: -100px;
-    }
-    100% {
-        top: 800px;
-    }
+#special{
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    animation: slideSpecial 1.9s linear infinite;
+    position: relative;
+    top: -500px;
+}
+@keyframes slideBlock {
+    0% {top: -100px;}
+    100% {top: 800px;}
+}
+@keyframes slideCoin {
+    0% {top: -200px;}
+    100% {top: 800px;}
+}
+@keyframes slideSpecial {
+    0% {top: -300px;}
+    100% {top: 800px;}
 }
