@@ -17,7 +17,9 @@
     <div id="game">
         <div id="block"></div>
         <!-- <div id="special"></div> -->
-        <div id="coin"></div>
+        <div id="coin">
+            <img id="imgCoin" src="imgs/coin.png" alt="coins">
+        </div>
         <div id="character"></div>
     </div>
     <script type="text/javascript" src="custom.js"></script>

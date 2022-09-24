@@ -15,11 +15,15 @@
 #character{
     width: 100px;
     height: 100px;
-    background-color: red;
+    background-color: transparent;
+    border: 1px solid transparent;
     position: relative;
     top: 500px;
     left: 150px;
     z-index: 10;
+    background-image: url("imgs/runner.gif");
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 #block{
     width: 100px;
@@ -27,21 +31,34 @@
     background-color: black;
     animation: slideBlock 1.3s linear infinite;
     position: relative;
+    background-color: transparent;
+    border: 1px solid transparent;
+    background-image: url("imgs/block.png");
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 #coin{
     width: 100px;
     height: 100px;
-    background-color: yellow;
+    background-color: transparent;
+    border: 1px solid transparent;
     animation: slideCoin 1.7s linear infinite;
     position: relative;
+}
+#imgCoin{
+    width: 70%;
 }
 #special{
     width: 100px;
     height: 100px;
-    background-color: blue;
     animation: slideSpecial 1.9s linear infinite;
     position: relative;
     top: -500px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    background-image: url("imgs/gift.png");
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 @keyframes slideBlock {
     0% {top: -100px;}
