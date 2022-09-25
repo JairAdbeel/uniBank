@@ -8,6 +8,9 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-image: url('imgs/fullBack.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 :root {

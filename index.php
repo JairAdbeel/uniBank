@@ -25,7 +25,7 @@
             </div>
         </div>
         <div id="block"></div>
-        <div id="coin"><img id="imgCoin" src="imgs/coin.svg" alt="coins"></div>
+        <div id="coin"><img id="imgCoin" src="imgs/coin.gif" alt="coins"></div>
         <div id="runner"></div>
 
         <div class="modal fade" id="questions" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
