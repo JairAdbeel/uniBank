@@ -20,8 +20,6 @@ body {
 }
 
 #game{
-    width: 400px;
-    height: 800px;
     border: 1px solid black;
     margin: auto;
     overflow: hidden;
@@ -60,8 +58,6 @@ body {
     z-index: 10;
 }
 #runner{
-    width: 100px;
-    height: 100px;
     background-color: transparent;
     border: 1px solid transparent;
     position: relative;
@@ -73,8 +69,6 @@ body {
     background-size: contain;
 }
 #block{
-    width: 100px;
-    height: 100px;
     background-color: black;
     animation: slideBlock var(--timeRunningBlock) linear infinite;
     position: relative;
@@ -85,8 +79,6 @@ body {
     background-size: contain;
 }
 #coin{
-    width: 100px;
-    height: 100px;
     background-color: transparent;
     border: 1px solid transparent;
     animation: slideCoin var(--timeRunningCoin) linear infinite;
@@ -98,8 +90,6 @@ body {
     display: block;
 }
 #special{
-    width: 100px;
-    height: 100px;
     animation: slideSpecial var(--timeRunningSpecial) linear infinite;
     position: relative;
     top: -500px;
