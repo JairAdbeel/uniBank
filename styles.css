@@ -22,7 +22,7 @@ body {
     border: 1px solid black;
     margin: auto;
     overflow: hidden;
-    background-image: url("imgs/fondo.gif");
+    background-image: url("imgs/street.gif");
     background-repeat: no-repeat;
     background-size: contain;
 }
@@ -31,6 +31,30 @@ body {
     justify-content: space-around;
     position: fixed;
     height: auto;
+    margin: 5px 0;
+    z-index: 10;
+}
+.metrics{
+    width: 40%;
+    height: 40px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 5px rgb(255 255 255 / 20%);
+    background-color: rgb(255 255 255 / 50%);
+    display: flex;
+    justify-content: space-evenly;
+}
+.vidas{
+    width: 30px;
+}
+#score{
+    width: 30%;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    background-color: transparent;
+    color: white;
+    font-size: 34px;
+    z-index: 10;
 }
 #character{
     width: 100px;
@@ -49,7 +73,7 @@ body {
     width: 100px;
     height: 100px;
     background-color: black;
-    /* animation: slideBlock var(--timeRunningBlock) linear infinite; */
+    animation: slideBlock var(--timeRunningBlock) linear infinite;
     position: relative;
     background-color: transparent;
     border: 1px solid transparent;
@@ -62,16 +86,18 @@ body {
     height: 100px;
     background-color: transparent;
     border: 1px solid transparent;
-    /* animation: slideCoin var(--timeRunningCoin) linear infinite; */
+    animation: slideCoin var(--timeRunningCoin) linear infinite;
     position: relative;
 }
 #imgCoin{
-    width: 70%;
+    width: 80%;
+    margin: auto;
+    display: block;
 }
 #special{
     width: 100px;
     height: 100px;
-    /* animation: slideSpecial var(--timeRunningSpecial) linear infinite; */
+    animation: slideSpecial var(--timeRunningSpecial) linear infinite;
     position: relative;
     top: -500px;
     background-color: transparent;
@@ -89,7 +115,7 @@ body {
     100% {top: 800px;}
 }
 @keyframes slideSpecial {
-    0% {top: -300px;}
+    0% {top: -350px;}
     100% {top: 800px;}
 }
 
