@@ -1,9 +1,12 @@
-var character              = document.getElementById('character');
+var avatar                 = document.getElementById("runner");
 var score                  = document.getElementById("score");
 var block                  = document.getElementById("block");
 var coin                   = document.getElementById("coin");
 var game                   = document.getElementById("game");
 var headers                = document.getElementById("headers");
+var life                   = document.getElementById("lifeSpace");   
+var container123           = document.getElementById("container123");
+var gif123                 = document.getElementById("gif123");
 
 var flagCoin               = false;
 var flagSpecial            = false;
@@ -15,6 +18,7 @@ var longitudObject         = 0;
 var tolerancia             = 0;
 var izquirdaBase           = 0;
 let carriles               = 4;
+var vidasRestantes         = 3;
 
 let intervalTimeSpecial    = 0.1;       //tiempo de espera en verificacion la nueva posicion de elemento special
 let intervalTimeBlock      = 1;         //tiempo de espera en verificacion la nueva posicion de elemento block
@@ -50,20 +54,24 @@ function cargarDimensiones(){
 
 //cambiar las nuevas dimensiones de los elementos de acuerdo a la proporción definida
 function setearDimensiones(){
-    longitudObject = width / 4;
-    tolerancia             = longitudObject / 2;
-    izquirdaBase           = tolerancia * 3; 
-    character.style.left   = izquirdaBase + "px";
-    character.style.top    = (longitudObject * 5) + "px";
-    game.style.width       = width + "px";
-    game.style.height      = height + "px";
-    headers.style.width    = width + "px";
-    character.style.width  = longitudObject + "px";
-    character.style.height = longitudObject + "px";
-    block.style.width      = longitudObject + "px";
-    block.style.height     = longitudObject + "px";
-    coin.style.width       = longitudObject + "px";
-    coin.style.height      = longitudObject + "px";
+    longitudObject           = width / 4;
+    tolerancia               = longitudObject / 2;
+    izquirdaBase             = tolerancia * 3; 
+    avatar.style.left        = izquirdaBase + "px";
+    avatar.style.top         = (longitudObject * 5) + "px";
+    game.style.width         = width + "px";
+    game.style.height        = height + "px";
+    headers.style.width      = width + "px";
+    avatar.style.width       = longitudObject + "px";
+    avatar.style.height      = longitudObject + "px";
+    block.style.width        = longitudObject + "px";
+    block.style.height       = longitudObject + "px";
+    coin.style.width         = longitudObject + "px";
+    coin.style.height        = longitudObject + "px";
+    container123.style.width = width + "px";
+    container123.style.top   = (2 * longitudObject) + "px";
+    gif123.style.width       = width + "px";
+    gif123.style.height      = width + "px";
 }
 
 document.addEventListener("keydown", event => {
@@ -71,17 +79,17 @@ document.addEventListener("keydown", event => {
     if (event.key === "ArrowRight") {moveToRight();}
 })
 function moveToLeft(){
-    let left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
+    let left = parseInt(window.getComputedStyle(avatar).getPropertyValue("left"));
     left -= tolerancia;
     if ( left >= 0 ) {
-        character.style.left = left + "px";
+        avatar.style.left = left + "px";
     }
 }
 function moveToRight(){
-    let left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
+    let left = parseInt(window.getComputedStyle(avatar).getPropertyValue("left"));
     left += tolerancia;
     if ( left < width - tolerancia ) {
-        character.style.left = left + "px";
+        avatar.style.left = left + "px";
     }
 }
 
@@ -99,24 +107,27 @@ coin.addEventListener("animationiteration", () => {
 
 
 //detectar los choques en los bloques mediante iteraciones de temporzador
-setInterval(function() {
-    var characterLeft   = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
+var blockInterval = setInterval( funcBlockInterval, intervalTimeBlock);
+function funcBlockInterval() {
+    var avatarLeft   = parseInt(window.getComputedStyle(avatar).getPropertyValue("left"));
     var blockLeft       = parseInt(window.getComputedStyle(block).getPropertyValue("left"));  
     var blockBottom     = parseInt(window.getComputedStyle(block).getPropertyValue("bottom"));
 
-    if (characterLeft - blockLeft <= tolerancia && characterLeft - blockLeft > (longitudObject * -1) &&
+    if (avatarLeft - blockLeft <= tolerancia && avatarLeft - blockLeft > (longitudObject * -1) &&
         blockBottom <= (-6 * longitudObject) && blockBottom >= (-8 * longitudObject)) {
-        alert("Game Over! Score: " + countCoins); 
+        
+        cuestionario();
     }
-}, intervalTimeBlock);
+}
 
 //detectar los choques en las monedas mediante iteraciones de temporzador
-setInterval(function() {
-    var characterLeft   = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
+var coinInterval = setInterval( funcCoinInterval, intervalTimeSpecial - 200);
+function funcCoinInterval() {
+    var avatarLeft   = parseInt(window.getComputedStyle(avatar).getPropertyValue("left"));
     var coinLeft        = parseInt(window.getComputedStyle(coin).getPropertyValue("left")); 
     var coinBottom      = parseInt(window.getComputedStyle(coin).getPropertyValue("bottom"));
 
-    if (characterLeft - coinLeft <= tolerancia && characterLeft - coinLeft > (-2 * tolerancia) && 
+    if (avatarLeft - coinLeft <= tolerancia && avatarLeft - coinLeft > (-2 * tolerancia) && 
         coinBottom <= (-6 * longitudObject) && coinBottom >= (-8 * longitudObject)) {
         // activar una bandera cuando hubo contacto con una maneda
         flagCoin = true;
@@ -128,23 +139,25 @@ setInterval(function() {
         var specialLeft     = parseInt(window.getComputedStyle(special).getPropertyValue("left")); 
         var specialBottom   = parseInt(window.getComputedStyle(special).getPropertyValue("bottom"));
 
-        if (characterLeft - specialLeft <= tolerancia && characterLeft - specialLeft > (-2 * tolerancia) && 
+        if (avatarLeft - specialLeft <= tolerancia && avatarLeft - specialLeft > (-2 * tolerancia) && 
             specialBottom <= (-3 * longitudObject) && specialBottom >= (-6 * longitudObject)) {
         // activar una bandera cuando hubo contacto con una maneda
             flagSpecial = true;
         }
     }
-}, intervalTimeSpecial - 200);
+}
 
-setInterval(function() {
+var coinFlagInterval = setInterval( coinFlagIntervalDev, intervalCoinRunning);
+function coinFlagIntervalDev() {
     if (flagCoin) {
         countCoins++;
         score.value = countCoins;
     }
     flagCoin = false;
-}, intervalCoinRunning);
+}
 
-var funcSpecial = setInterval(function() {
+var funcSpecial = setInterval( funcSpecialDev, intervalSpecialDelay);
+function funcSpecialDev() {
     if (arrayAccesorios.length > 0) {
         var random      = Math.floor(Math.random() * carriles);
         var left        = random * longitudObject;
@@ -156,7 +169,7 @@ var funcSpecial = setInterval(function() {
 
         eliminarSpecial();
     }
-}, 3000);
+}
 
 function eliminarSpecial() {
     setTimeout(function() {
@@ -171,4 +184,69 @@ function eliminarSpecial() {
         document.getElementById("game").removeChild(special);
         clearInterval("funcSpecial");
     }, intervalSpecialRunning);
+}
+
+function cuestionario() {
+    detenerVista();
+    $("#questions").modal("show");
+}
+
+function detenerVista(){
+    //detener los intervalos de tiempo
+    clearInterval(blockInterval);
+    clearInterval(coinInterval);
+    clearInterval(coinFlagInterval);
+    clearInterval(funcSpecial);
+
+    //detener las animaciones de las vistas
+    block.style.animation = "slideBlock var(--timeRunningBlock) linear unset";
+    coin.style.animation = "slideCoin var(--timeRunningCoin) linear unset";
+    game.style.backgroundImage = "url('imgs/street.png')";
+    avatar.style.backgroundImage = "url('imgs/runner.png')";
+
+    //restar 1 vida
+    vidasRestantes--;
+    life.removeChild(life.lastElementChild);
+}
+
+function responder(eleccion){
+    $("#questions").modal("hide");
+    if (eleccion) {
+        $("#success").modal("show");
+    }else{
+        countCoins -= 10;
+        score.value = countCoins;
+        $("#wrong").modal("show");
+    }
+}
+
+function continuarJuego(data){
+    if (data) {
+        $("#success").modal("hide");
+    }else{
+        $("#wrong").modal("hide");
+    }
+
+
+    if (vidasRestantes < 0) {
+        // se acabó el juego
+    } else {
+        $("#container123").show();
+
+    setTimeout(function() {
+        $("#container123").hide();
+
+         //reanudar las animaciones
+         block.style.animation = "slideBlock var(--timeRunningBlock) linear infinite";
+         coin.style.animation = "slideCoin var(--timeRunningCoin) linear infinite";
+         game.style.backgroundImage = "url('imgs/street.gif')";
+         avatar.style.backgroundImage = "url('imgs/runner.gif')";
+
+        //reanudar las iteraciones de validación
+        blockInterval    = setInterval(funcBlockInterval, intervalTimeBlock);
+        coinInterval     = setInterval(funcCoinInterval, intervalTimeSpecial);
+        coinFlagInterval = setInterval(coinFlagIntervalDev, intervalCoinRunning);
+        funcSpecial      = setInterval(funcSpecialDev, intervalSpecialDelay);
+    }, 3200);
+    }
 }

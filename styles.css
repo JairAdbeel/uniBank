@@ -48,7 +48,7 @@ body {
     width: 30px;
 }
 #score{
-    width: 30%;
+    width: 50%;
     text-align: center;
     font-family: 'Roboto', sans-serif;
     background-color: transparent;
@@ -56,7 +56,7 @@ body {
     font-size: 34px;
     z-index: 10;
 }
-#character{
+#runner{
     width: 100px;
     height: 100px;
     background-color: transparent;
@@ -119,11 +119,47 @@ body {
     100% {top: 800px;}
 }
 
-/* @media (max-width:480px) {
-    #game{
-        width: 95%;
-        height: 90vh;
-        border: 1px solid black;
-        margin: 5vh auto;
-    }
-} */
+.cuySpace{
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+}
+#question, #feedback{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.7)!important;
+    margin: 0 10px;
+}
+#cuy{
+    width: 215px;
+}
+.modal{
+    pointer-events: none!important;
+}
+.titleModal{
+    font-family: 'Roboto', sans-serif!important;
+    font-size: 26px!important;
+}
+.modal-footer{
+    display: contents!important;
+}
+.buttons, .continuar{
+    background-color: rgba(255, 79, 75, 0.9)!important;
+    font-family: 'Roboto', sans-serif!important;
+    font-size: 17px!important;
+}
+.continuar{
+    background-color: #34B171!important;
+}
+.salir{
+    background-color: #F44336!important;
+}
+#container123{
+    z-index: 10000;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+}
