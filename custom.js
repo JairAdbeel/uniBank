@@ -7,8 +7,7 @@ var headers                = document.getElementById("headers");
 
 var flagCoin               = false;
 var flagSpecial            = false;
-var counter                = 0;
-var countSpecial           = 0;
+var countCoins             = 0;
 
 var width                  = 0;
 var height                 = 0;
@@ -25,6 +24,7 @@ let intervalSpecialRunning = 1900;      //tiempo de recorrido el div padre: top 
 let intervalSpecialDelay   = 15000;     //tiempo de espera hasta su próxima aparición en div padre
 
 let arrayAccesorios        = [1, 2, 3, 4, 5, 6, 7, 8];
+var countAccesorios        = 0;
 let arrayNewAvailables     = [];
 
 function cargarDimensiones(){
@@ -98,6 +98,7 @@ coin.addEventListener("animationiteration", () => {
 });
 
 
+//detectar los choques en los bloques mediante iteraciones de temporzador
 setInterval(function() {
     var characterLeft   = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
     var blockLeft       = parseInt(window.getComputedStyle(block).getPropertyValue("left"));  
@@ -105,10 +106,11 @@ setInterval(function() {
 
     if (characterLeft - blockLeft <= tolerancia && characterLeft - blockLeft > (longitudObject * -1) &&
         blockBottom <= (-6 * longitudObject) && blockBottom >= (-8 * longitudObject)) {
-        // alert("Game Over! Score: " + counter);
+        alert("Game Over! Score: " + countCoins); 
     }
 }, intervalTimeBlock);
 
+//detectar los choques en las monedas mediante iteraciones de temporzador
 setInterval(function() {
     var characterLeft   = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
     var coinLeft        = parseInt(window.getComputedStyle(coin).getPropertyValue("left")); 
@@ -116,9 +118,11 @@ setInterval(function() {
 
     if (characterLeft - coinLeft <= tolerancia && characterLeft - coinLeft > (-2 * tolerancia) && 
         coinBottom <= (-6 * longitudObject) && coinBottom >= (-8 * longitudObject)) {
+        // activar una bandera cuando hubo contacto con una maneda
         flagCoin = true;
     }
 
+    //detectar los choques en los regalos mediante iteraciones de temporzador
     if (document.getElementById("special") ) {
         var special         = document.getElementById("special");
         var specialLeft     = parseInt(window.getComputedStyle(special).getPropertyValue("left")); 
@@ -126,36 +130,40 @@ setInterval(function() {
 
         if (characterLeft - specialLeft <= tolerancia && characterLeft - specialLeft > (-2 * tolerancia) && 
             specialBottom <= (-3 * longitudObject) && specialBottom >= (-6 * longitudObject)) {
+        // activar una bandera cuando hubo contacto con una maneda
             flagSpecial = true;
         }
     }
-}, intervalTimeSpecial);
+}, intervalTimeSpecial - 200);
 
 setInterval(function() {
     if (flagCoin) {
-        counter++;
-        // score.value = counter;
+        countCoins++;
+        score.value = countCoins;
     }
     flagCoin = false;
 }, intervalCoinRunning);
 
 var funcSpecial = setInterval(function() {
-    var random      = Math.floor(Math.random() * carriles);
-    var left        = random * longitudObject;
-    var special     = document.createElement("div");
+    if (arrayAccesorios.length > 0) {
+        var random      = Math.floor(Math.random() * carriles);
+        var left        = random * longitudObject;
+        var special     = document.createElement("div");
 
-    special.setAttribute("id", "special");
-    special.style.left = left + "px";
-    document.getElementById("game").appendChild(special);
+        special.setAttribute("id", "special");
+        special.style.left = left + "px";
+        document.getElementById("game").appendChild(special);
 
-    eliminarSpecial();
-}, intervalSpecialDelay);
+        eliminarSpecial();
+    }
+}, 3000);
 
 function eliminarSpecial() {
     setTimeout(function() {
         if (flagSpecial) {
-            countSpecial++;
-            // accesories.value = countSpecial;
+            arrayNewAvailables.push(arrayAccesorios[0]);
+            arrayAccesorios.shift();
+            console.log(arrayNewAvailables);
         }
         flagSpecial = false;
 
